@@ -9,3 +9,8 @@ Tasks required for this project:
  - policy for cloudformation
  - jenkins worker + aws cli
  - cli and access ID
+ - using an EC2 with jenkins installed already
+ 
+ Steps:
+ - Install Jenkins using marketplace AMI(Jenkins Certified by Bitnami), use t2.micro to avoid any charges
+ - 
