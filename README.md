@@ -17,9 +17,17 @@ Tasks required for this project:
  - Login into the jenkins by opening new tab and using the public IP of the ec2 and the loging information.
  - Install cloudformation plugins for the jenkins
  - Create a new free style job
- - define the github repository which contains the cloudformation template file
+ - define the github repository which contains the cloudformation template file and also the branch.
  - under the build enviroment section, aws cloudformation stack creation selected and the name of the template was defined.
  - jenkins calls the cloudformation api using access key and the secret key. So to minimize the security risk, new IAM user was created which has only access to cloudformation and S3 bucket. 
+ - jenkins pipeline needs AWS CLI to run the cloudformation. there are two methods avalble to install AWS CLI on the jenkins instance:
+   1- SSH into the instance and install AWS CLI
+   2- use ssh AWS system session manager 
+   
+ - make sure ssm agent is installed on the ec2 instance
+ - add ssm policy to the role
+ 
+ - ssh connect to the instance and install awscli and then check the cli with "aws configure"
  
  
 
