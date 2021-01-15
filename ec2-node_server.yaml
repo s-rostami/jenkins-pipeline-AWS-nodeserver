@@ -11,7 +11,7 @@ Resources:
       Tenancy: "default"
       SubnetId: "subnet-063dd014d61e4043d"
       EbsOptimized: false
-      IamInstanceProfile: "dynamo-access"
+     # IamInstanceProfile: "dynamo-access"
       SecurityGroupIds:
         - "sg-0621e7c6a29ec7922"
       SourceDestCheck: true
