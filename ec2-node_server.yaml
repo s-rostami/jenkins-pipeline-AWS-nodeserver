@@ -32,7 +32,6 @@ Resources:
       Path: "/"
       Roles:
       - !Ref DynamoAccessRole
-  
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
@@ -43,7 +42,8 @@ Resources:
       Tenancy: "default"
       SubnetId: "subnet-063dd014d61e4043d"
       EbsOptimized: false
-      IamInstanceProfile: !Ref RootInstanceProfile
+      IamInstanceProfile: 
+        !Ref RootInstanceProfile
       SecurityGroupIds:
         - "sg-0621e7c6a29ec7922"
       SourceDestCheck: true
@@ -60,7 +60,6 @@ Resources:
           #!/bin/sh
           cd /home/ubuntu/node-server
           pm2 start index.js -f --name node-server
-          
       Tags:
         - Key: "Name"
           Value: "node_server"
