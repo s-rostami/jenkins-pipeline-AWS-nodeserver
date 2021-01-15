@@ -28,8 +28,10 @@ Tasks required for this project:
  - add ssm policy to the role
  
  - ssh connect to the instance and install awscli and then check the cli with "aws configure"
- - update the policies of the ec2 role and add cloudformation and s3 policies
+ - update the policies of the jenkins server ec2 role and add cloudformation and s3 policies
  - Jenkinsfile: aws cli commands for creation of the stack needs to be defined in this file.
+ - in the cloudformation template, a new role for access to dynamodb database is created. 
+ - due to creating the new role, CAPABILITY_IAM was added to the cli command line in jenkins file.
  
  
 
