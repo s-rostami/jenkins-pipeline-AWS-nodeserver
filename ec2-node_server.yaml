@@ -1,6 +1,38 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: ""
 Resources:
+  DynamoAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+  RolePolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: root
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action: "*"
+          Resource: "*"
+      Roles:
+      - !Ref RootRole
+  RootInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref DynamoAccessRole
+  
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
@@ -11,7 +43,7 @@ Resources:
       Tenancy: "default"
       SubnetId: "subnet-063dd014d61e4043d"
       EbsOptimized: false
-      IamInstanceProfile: "dynamo-access"
+      IamInstanceProfile: !Ref RootInstanceProfile
       SecurityGroupIds:
         - "sg-0621e7c6a29ec7922"
       SourceDestCheck: true
