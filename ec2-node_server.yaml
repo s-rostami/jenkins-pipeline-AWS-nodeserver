@@ -4,7 +4,7 @@ Resources:
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
-      ImageId: "ami-094ae55a845638986"
+      ImageId: "ami-0e7f241a967f9b30e"
       InstanceType: "t2.micro"
       KeyName: !Sub "${AWS::Region}-key"
       AvailabilityZone: !Sub "${AWS::Region}b"
@@ -12,16 +12,22 @@ Resources:
       SubnetId: "subnet-063dd014d61e4043d"
       EbsOptimized: false
       SecurityGroupIds:
-        - "sg-083ed0874697e00ce"
+        - "sg-0621e7c6a29ec7922"
       SourceDestCheck: true
       BlockDeviceMappings:
         - DeviceName: "/dev/sda1"
           Ebs:
             Encrypted: false
             VolumeSize: 8
-            SnapshotId: "snap-0a7e8b0d4c5ba6753"
+            SnapshotId: "snap-0c111f01135b959e0"
             VolumeType: "gp2"
-            DeleteOnTermination: false
+            DeleteOnTermination: true
+      UserData:
+        Fn::Base64: |
+          #!/bin/sh
+          cd /home/ubuntu/node-server
+          pm2 start index.js -f --name node-server
+          
       Tags:
         - Key: "Name"
           Value: "node_server"
