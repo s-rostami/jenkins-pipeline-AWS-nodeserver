@@ -32,6 +32,7 @@ Tasks required for this project:
  - Jenkinsfile: aws cli commands for creation of the stack needs to be defined in this file.
  - in the cloudformation template, a new role for access to dynamodb database is created. 
  - due to creating the new role, CAPABILITY_IAM was added to the cli command line in jenkins file.
+ changed
  
  
 
