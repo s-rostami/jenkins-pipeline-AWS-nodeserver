@@ -14,7 +14,9 @@ pipeline {
         stage('IP address look up') {
             steps {
                 echo 'IP address look up'
-                sh '''aws ec2 describe-addresses --filters "Name=tag-key,Values=node-server" --region 'us-east-1' --output text'''
+                sh '''aws ec2 describe-addresses --filters "Name=tag-key,Values=node-server" --region 'us-east-1' --output text \
+                echo text
+                '''
             }
         }
         stage('Deploy') {
