@@ -7,9 +7,9 @@ pipeline {
               }
             }
         stage('ip address look-up'){
-            steps{
-            sh 'aws ec2 describe-instances --filters Name=tag-key ,Values=node-server --query "Reservations[*].Instances[*].PublicIpAddress" --output text'
+            steps {
+                sh 'aws ec2 describe-instances --filters Name=tag-key ,Values=node-server --query "Reservations[*].Instances[*].PublicIpAddress" --output text'
               }
-            }
-          }
-        }
+         }
+      }
+}
