@@ -14,7 +14,7 @@ pipeline {
         stage('IP address look up') {
             steps {
                 echo 'IP address look up'
-                sh 'aws ec2 describe-instances --filters Name=tag-key ,Values=node-server --query 'Reservations[*].Instances[*].PublicIpAddress' --output text"
+                sh 'aws ec2 describe-instances --filters Name=tag-key ,Values=node-server --query Reservations[*].Instances[*].PublicIpAddress --output text"
             }
         }
         stage('Deploy') {
