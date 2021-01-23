@@ -28,7 +28,7 @@ pipeline {
         stage('SSH into EC2') {
             steps {
                 sshagent (credentials: ['46c9fdad-0c60-4bec-9460-38cd3ffcca40']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ${env.IP3} uname -a'
+                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu $IP3 uname -a'
                     }
                 }
             }
