@@ -8,7 +8,10 @@ pipeline {
     stages {
         stage('EC2 Provision') {
             steps {
-                sh '''aws cloudformation create-stack --stack-name jenkins-nodeserver2 --template-body file://ec2-node_server.yaml --region 'us-east-1' --capabilities CAPABILITY_IAM'''
+                sh '''
+                aws cloudformation create-stack --stack-name jenkins-nodeserver2 --template-body file://ec2-node_server.yaml --region 'us-east-1' --capabilities CAPABILITY_IAM
+                aws ec2 wait instance-running
+                '''
                 }
             }
         stage('IP address look up') {
