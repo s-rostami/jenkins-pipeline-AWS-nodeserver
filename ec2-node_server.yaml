@@ -61,6 +61,6 @@ Resources:
           pm2 start index.js -f --name node-server
       Tags:
         - Key: "Name"
-          Value: "node_server3"
+          Value: "node_server4"
       HibernationOptions:
         Configured: false
