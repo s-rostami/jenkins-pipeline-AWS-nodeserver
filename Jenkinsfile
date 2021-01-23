@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh '''
                 aws cloudformation create-stack --stack-name jenkins-nodeserver2 --template-body file://ec2-node_server.yaml --region 'us-east-1' --capabilities CAPABILITY_IAM
-                aws ec2 wait instance-status-ok --include-all-instances --region 'us-east-1'
+                aws ec2 wait instance-status-ok --filters "Name=tag:Name,Values=node_server" --region 'us-east-1'
                 '''
                 }
             }
