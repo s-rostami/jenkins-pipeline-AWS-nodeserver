@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh '''
                 aws cloudformation create-stack --stack-name jenkins-nodeserver2 --template-body file://ec2-node_server.yaml --region 'us-east-1' --capabilities CAPABILITY_IAM
-                aws ec2 wait instance-status-ok --filters "Name=tag:Name,Values=node_server" --region 'us-east-1'
+                aws ec2 wait instance-status-ok --filters "Name=tag:Name,Values=node_server3" --region 'us-east-1'
                 '''
                 }
             }
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo "IP = ${env.IP}"
                 script {    
-                    env.IP3 = sh(script:'aws ec2 describe-instances --filters "Name=tag:Name,Values=node_server" --query Reservations[*].Instances[*].PublicIpAddress --region \'us-east-1\' --output text', returnStdout: true).trim()}
+                    env.IP3 = sh(script:'aws ec2 describe-instances --filters "Name=tag:Name,Values=node_server3" --query Reservations[*].Instances[*].PublicIpAddress --region \'us-east-1\' --output text', returnStdout: true).trim()}
                 echo "IP3 = ${env.IP3}"
                 withEnv(["IP=foopbar"]){
                     echo "IP = ${env.IP}"
