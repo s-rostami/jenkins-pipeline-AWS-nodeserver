@@ -5,45 +5,44 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
-        - Effect: Allow
-          Principal:
-            Service:
-            - ec2.amazonaws.com
-          Action:
-          - sts:AssumeRole
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
       Path: "/"
   RolePolicies:
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: root
       PolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
-        - Effect: Allow
-          Action: "*"
-          Resource: "*"
+          - Effect: Allow
+            Action: "*"
+            Resource: "*"
       Roles:
-      - !Ref DynamoAccessRole
+        - !Ref DynamoAccessRole
   RootInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Path: "/"
       Roles:
-      - !Ref DynamoAccessRole
+        - !Ref DynamoAccessRole
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
       ImageId: "ami-0e7f241a967f9b30e"
       InstanceType: "t2.micro"
-      KeyName: !Sub "${AWS::Region}-key"
+      KeyName: !Sub "jenkins"
       AvailabilityZone: !Sub "${AWS::Region}b"
       Tenancy: "default"
       SubnetId: "subnet-063dd014d61e4043d"
       EbsOptimized: false
-      IamInstanceProfile: 
-        !Ref RootInstanceProfile
+      IamInstanceProfile: !Ref RootInstanceProfile
       SecurityGroupIds:
         - "sg-0621e7c6a29ec7922"
       SourceDestCheck: true

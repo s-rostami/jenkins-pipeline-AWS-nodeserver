@@ -13,10 +13,26 @@ pipeline {
             }
         stage('IP address look up') {
             steps {
-                echo 'IP address look up'
-                sh '''aws ec2 describe-addresses --filters "Name=tag-key,Values=node-server" --region 'us-east-1' --output text \
-                echo text
-                '''
+                echo "IP = ${env.IP}"
+                script {    
+                    env.IP3 = sh(script:'aws ec2 describe-instances --filters "Name=tag:Name,Values=node_server" --query Reservations[*].Instances[*].PublicIpAddress --region \'us-east-1\' --output text', returnStdout: true).trim()}
+                echo "IP3 = ${env.IP3}"
+                withEnv(["IP=foopbar"]){
+                    echo "IP = ${env.IP}"
+                }
+            }
+        }
+        stage('SSH into EC2') {
+            steps {
+                sshagent (credentials: ['46c9fdad-0c60-4bec-9460-38cd3ffcca40']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ${env.IP3} uname -a'
+                    }
+                }
+            }
+        stage('build image') {
+            steps {
+                echo 'creating an image'
+                sh "aws ec2 create-image --instance-id i-04edd61f33d1320e2 --name 'My Jenkins Server Image' --region 'us-east-1'"
             }
         }
         stage('Deploy') {
